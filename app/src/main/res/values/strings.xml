@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Vaccination</string>
+    <string name="name">Name :</string>
+    <string name="father_name">Father\'s Name :</string>
+    <string name="mother_name">Mohter\'s Name :</string>
+    <string name="dob">Date Of Birth :</string>
+    <string name="gender">Gender :</string>
+    <string name="clear_entries">Clear All Entries</string>
+</resources>

@@ -85,8 +85,9 @@
 
             <Spinner
                 android:id="@+id/spinner_gender"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:paddingRight="16dp"
                 android:spinnerMode="dropdown"/>
         </LinearLayout>
     </LinearLayout>
@@ -116,5 +117,11 @@
             android:text="Choose Time"
             android:focusable="false"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/done_editing"
+        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -28,7 +28,7 @@ public class VaccineHelper extends SQLiteOpenHelper {
                 ChildEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 ChildEntry.COLUMN_FATHER + " TEXT NOT NULL, " +
                 ChildEntry.COLUMN_MOTHER + " TEXT NOT NULL, " +
-                ChildEntry.COLUMN_GENDER + " INTEGER NOT NULL, +" +
+                ChildEntry.COLUMN_GENDER + " INTEGER NOT NULL, " +
                 ChildEntry.COLUMN_DOB + " INTEGER NOT NULL);";
         db.execSQL(SQL_CREATE_CHILD_TABLE);
     }

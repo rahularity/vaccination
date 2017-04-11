@@ -6,4 +6,13 @@
     <string name="dob">Date Of Birth :</string>
     <string name="gender">Gender :</string>
     <string name="clear_entries">Clear All Entries</string>
+    <!-- Label for dropdown menu option if the pet's gender is unknown [CHAR LIMIT=20] -->
+    <string name="gender_unknown">Unknown</string>
+
+    <!-- Label for dropdown menu option if the pet is male [CHAR LIMIT=20] -->
+    <string name="gender_male">Male</string>
+
+    <!-- Label for dropdown menu option if the pet is female [CHAR LIMIT=20] -->
+    <string name="gender_female">Female</string>
+    
 </resources>

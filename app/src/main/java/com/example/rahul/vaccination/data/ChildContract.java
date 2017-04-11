@@ -19,7 +19,8 @@ public final class ChildContract {
         public final static String COLUMN_DOB = "dob";
 
 
-        public final static int GENDER_MALE = 0;
-        public final static int GENDER_FEMALE = 1;
+        public final static int GENDER_UNKNOWN = 0;
+        public final static int GENDER_MALE = 1;
+        public final static int GENDER_FEMALE = 2;
     }
 }

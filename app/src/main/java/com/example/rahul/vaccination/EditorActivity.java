@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,10 +21,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.example.rahul.vaccination.data.ChildContract;
 import com.example.rahul.vaccination.data.VaccineHelper;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -82,6 +79,7 @@ public class EditorActivity extends AppCompatActivity {
             }
 
         };
+
 
         date_picker.setOnClickListener(new View.OnClickListener() {
 
@@ -179,9 +177,9 @@ public class EditorActivity extends AppCompatActivity {
     }
 
 
+
     public void save()
     {
-
         String childNameString = childName.getText().toString().trim();
         String fatherNameString = fatherName.getText().toString().trim();
         String motherNameString = motherName.getText().toString().trim();
@@ -221,8 +219,6 @@ public class EditorActivity extends AppCompatActivity {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
             Toast.makeText(this, "Pet saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 

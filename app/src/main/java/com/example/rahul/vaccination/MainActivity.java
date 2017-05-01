@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SimpleDateFormat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,14 +18,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.example.rahul.vaccination.data.ChildContract;
 import com.example.rahul.vaccination.data.VaccineHelper;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.Duration;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.Period;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-
-    private  String[] child_list;
-    private int entries=0;
+    private  int count = 0;
 
     Context context = this;
     @Override
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         //end of the button functionality
 
 
+        //for viewing the items of the database in the LogCat
         String[] projection = {
                 ChildContract.ChildEntry.ID,
                 ChildContract.ChildEntry.COLUMN_NAME,
@@ -62,14 +69,62 @@ public class MainActivity extends AppCompatActivity {
             Log.d("row id",c.getString(c.getColumnIndex(ChildContract.ChildEntry.ID)) + c.getString(c.getColumnIndex(ChildContract.ChildEntry.COLUMN_NAME)) + c.getString(c.getColumnIndex(ChildContract.ChildEntry.COLUMN_FATHER)) + c.getString(c.getColumnIndex(ChildContract.ChildEntry.COLUMN_MOTHER)) + c.getString(c.getColumnIndex(ChildContract.ChildEntry.COLUMN_GENDER)) + c.getString(c.getColumnIndex(ChildContract.ChildEntry.COLUMN_DOB)));
 
         }
+        //database items in the logcat END...
 
 
 
 
-        String ageDetail = new String();
-        ageDetail = "Rahul is 2 years 11 months 24 days 7 hours 3 minutes 45 seconds old.";
-        TextView ageDetailTextView = (TextView)findViewById(R.id.age_detail);
-        ageDetailTextView.setText(ageDetail);
+        final TextView age_display = (TextView)findViewById(R.id.age_detail);
+        AndroidThreeTen.init(this);
+
+
+
+        Thread t = new Thread(){
+            @Override
+            public void run() {
+                while(!isInterrupted()){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                            //getting current date and time instance
+                            LocalDateTime today = LocalDateTime.now();
+                            //getting date and time instance of birthday
+                            LocalDateTime birthday = LocalDateTime.parse("21-06-1996 00:30",formatter);
+
+
+                            //getting duration of current day from midnight till current instant
+                            LocalDateTime YesterdayTillMidnight = today.toLocalDate().atStartOfDay();
+                            Duration durationInCurrentDay = Duration.between(YesterdayTillMidnight,today);
+
+
+//                            Duration durationInFirstDay = Duration.between(birthday,firstDayAfterBirth);
+
+//                            Duration totalDuration = durationInFirstDay.plus(durationInCurrentDay);
+
+                            Period p = Period.between(birthday.toLocalDate(),today.toLocalDate());
+                            long hours = durationInCurrentDay.toHours();
+                            long minutes = durationInCurrentDay.toMinutes()-hours*60;
+                            long seconds = durationInCurrentDay.getSeconds()-(hours*3600)-(minutes*60);
+ //                           long milliseconds = durationInCurrentDay.toMillis()-hours*3600000-minutes*60000-seconds*1000;
+
+
+                            age_display.setText("Rahul Pandey is " +  p.getYears() + " years " +
+                                    p.getMonths() + " months " + p.getDays() + " days " +
+                                    hours + " hours " + minutes + " minutes " + seconds + " seconds old.");
+                        }
+                    });
+
+                }
+            }
+        };
+        t.start();
 
 
     }
@@ -96,23 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
-       // menu.clear();
-//        String[] projection = {
-//                ChildContract.ChildEntry.COLUMN_NAME
-//        };
-//
-//        VaccineHelper vaccineHelper = new VaccineHelper(this);
-//        SQLiteDatabase db = vaccineHelper.getReadableDatabase();
-//        Cursor c = db.query(ChildContract.ChildEntry.TABLE_NAME,projection,null,null,null,null,null);
-//
-//        int i=0;
-//        showAllChild();
-//        while(i<entries) {
-//            menu.add(0, Menu.FIRST + i, Menu.NONE,child_list[i]);
-//            i++;
-//        }
-
         return super.onPrepareOptionsMenu(menu);
    }
 
